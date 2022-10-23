@@ -1,5 +1,5 @@
 import React from "react";
-import { FaGgCircle, FcGoogle } from "react-icons/fc";
+import { FcGoogle } from "react-icons/fc";
 const Login = () => {
   const handleLogin = () => {
     console.log("I am clicked");

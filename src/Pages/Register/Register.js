@@ -1,10 +1,15 @@
 import React from "react";
 
 const Register = () => {
+  const handleRegister = () => {
+    console.log("I am registering.");
+  };
   return (
     <div>
       <h2>This is Register page.</h2>
-      <button>Register here</button>
+      <button onClick={handleRegister} className="ms-4">
+        Register here
+      </button>
     </div>
   );
 };
