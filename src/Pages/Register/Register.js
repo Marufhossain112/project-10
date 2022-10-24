@@ -77,13 +77,12 @@ const Register = () => {
               className="text-blue-600 hover:underline dark:text-blue-500"
             >
               terms and conditions
-              {/*  */}
             </a>
           </Label>
         </div>
         <Button type="submit">Register</Button>
       </form>
-      <div >
+      <div className="mx-auto">
         Already have an account , <Link to="/login">Login</Link>
       </div>
       <Button
