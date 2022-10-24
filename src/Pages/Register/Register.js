@@ -1,9 +1,35 @@
+import { FacebookAuthProvider, GoogleAuthProvider } from "firebase/auth";
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
-import React from "react";
+import React, { useContext } from "react";
 import { FcGoogle } from "react-icons/fc";
+import { FaFacebook } from "react-icons/fa";
+import { AuthContext } from "../../context/UserContext";
+import { Link } from "react-router-dom";
+const googleProvider = new GoogleAuthProvider();
+const fbProvider = new FacebookAuthProvider();
 const Register = () => {
-  const handleLogin = () => {
-    console.log("I am clicked");
+  const { popupSignIn } = useContext(AuthContext);
+  const googleHandleLogin = () => {
+    // console.log("I am clicked");
+    popupSignIn(googleProvider)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  const fbHandleLogin = () => {
+    // console.log("I am clicked");
+    popupSignIn(fbProvider)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
   return (
     <div>
@@ -51,18 +77,30 @@ const Register = () => {
               className="text-blue-600 hover:underline dark:text-blue-500"
             >
               terms and conditions
+              {/*  */}
             </a>
           </Label>
         </div>
-        <Button type="submit">Register new account</Button>
+        <Button type="submit">Register</Button>
       </form>
+      <div >
+        Already have an account , <Link to="/login">Login</Link>
+      </div>
       <Button
-        onClick={handleLogin}
+        onClick={googleHandleLogin}
         className="mx-auto mt-3"
         outline={true}
         gradientDuoTone="greenToBlue"
       >
         <FcGoogle className="me-2" /> Sign in with Google
+      </Button>
+      <Button
+        onClick={fbHandleLogin}
+        className="mx-auto mt-3"
+        outline={true}
+        gradientDuoTone="greenToBlue"
+      >
+        <FaFacebook className="me-2" /> Sign in with Facebook
       </Button>
     </div>
   );

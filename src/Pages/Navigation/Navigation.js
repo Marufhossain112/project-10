@@ -1,14 +1,24 @@
-import { Avatar, Dropdown, Navbar } from "flowbite-react";
+import { Avatar, Button, Dropdown, Navbar } from "flowbite-react";
 import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../context/UserContext";
+import "./Navigation.css"
 
 const Navigation = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   console.log(user);
+  const handleSignOut = () => {
+    logOut()
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
   return (
     <div>
-      <Navbar fluid={true} rounded={true}>
+      <Navbar className="navbarz" fluid={true} rounded={true}>
         <Navbar.Brand href="https://flowbite.com/">
           <img
             src="https://flowbite.com/docs/images/logo.svg"
@@ -25,7 +35,7 @@ const Navigation = () => {
               <img
                 src={user?.photoURL}
                 className="rounded-circle w-[43px]"
-                alt="alt.pro"
+                alt=""
               />
             </div>
             <div>
@@ -34,6 +44,20 @@ const Navigation = () => {
                 {user?.email}
               </span>
             </div>
+            {user?.uid ? (
+              <Button onClick={handleSignOut} className="ms-2" color="light">
+                Sign Out
+              </Button>
+            ) : (
+              <>
+                <Button className="ms-2" color="light">
+                  <Link to="/login">Sign in</Link>
+                </Button>
+                <Button className="ms-2" color="light">
+                  <Link to="/register">Register</Link>
+                </Button>
+              </>
+            )}
           </div>
           <Navbar.Toggle />
         </div>
