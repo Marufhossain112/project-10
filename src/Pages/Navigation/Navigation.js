@@ -1,12 +1,11 @@
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
-import React from "react";
+import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
-// import Container from "react-bootstrap/Container";
-// import Nav from "react-bootstrap/Nav";
-// import Navbar from "react-bootstrap/Navbar";
-// import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/UserContext";
 
 const Navigation = () => {
+  const { user } = useContext(AuthContext);
+  console.log(user);
   return (
     <div>
       <Navbar fluid={true} rounded={true}>
@@ -21,29 +20,21 @@ const Navigation = () => {
           </span>
         </Navbar.Brand>
         <div className="flex md:order-2">
-          <Dropdown
-            arrowIcon={false}
-            inline={true}
-            label={
-              <Avatar
-                alt="User settings"
-                img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                rounded={true}
+          <div className="d-flex">
+            <div className="me-2">
+              <img
+                src={user?.photoURL}
+                className="rounded-circle w-[43px]"
+                alt="alt.pro"
               />
-            }
-          >
-            <Dropdown.Header>
-              <span className="block text-sm">Bonnie Green</span>
+            </div>
+            <div>
+              <span className="block text-sm">{user?.displayName}</span>
               <span className="block truncate text-sm font-medium">
-                name@flowbite.com
+                {user?.email}
               </span>
-            </Dropdown.Header>
-            <Dropdown.Item>Dashboard</Dropdown.Item>
-            <Dropdown.Item>Settings</Dropdown.Item>
-            <Dropdown.Item>Earnings</Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item>Sign out</Dropdown.Item>
-          </Dropdown>
+            </div>
+          </div>
           <Navbar.Toggle />
         </div>
         <Navbar.Collapse>

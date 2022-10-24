@@ -1,14 +1,27 @@
-import { GoogleAuthProvider } from "firebase/auth";
+import { FacebookAuthProvider, GoogleAuthProvider } from "firebase/auth";
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import React, { useContext } from "react";
 import { FcGoogle } from "react-icons/fc";
+import { FaFacebook } from "react-icons/fa";
 import { AuthContext } from "../../context/UserContext";
 const googleProvider = new GoogleAuthProvider();
+const fbProvider = new FacebookAuthProvider();
 const Login = () => {
-  const { googleSignIn } = useContext(AuthContext);
-  const handleLogin = () => {
+  const { popupSignIn } = useContext(AuthContext);
+  const googleHandleLogin = () => {
     // console.log("I am clicked");
-    googleSignIn(googleProvider)
+    popupSignIn(googleProvider)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  const fbHandleLogin = () => {
+    // console.log("I am clicked");
+    popupSignIn(fbProvider)
       .then((result) => {
         const user = result.user;
         console.log(user);
@@ -59,12 +72,20 @@ const Login = () => {
         <Button type="submit">Login</Button>
       </form>
       <Button
-        onClick={handleLogin}
+        onClick={googleHandleLogin}
         className="mx-auto mt-3"
         outline={true}
         gradientDuoTone="greenToBlue"
       >
         <FcGoogle className="me-2" /> Sign in with Google
+      </Button>
+      <Button
+        onClick={fbHandleLogin}
+        className="mx-auto mt-3"
+        outline={true}
+        gradientDuoTone="greenToBlue"
+      >
+        <FaFacebook className="me-2" /> Sign in with Facebook
       </Button>
     </div>
   );
